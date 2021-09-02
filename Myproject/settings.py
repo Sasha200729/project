@@ -1,3 +1,4 @@
+#project
 """
 Django settings for Myproject project.
 
