@@ -1,6 +1,5 @@
 from django.db import models
-
-
+import math
 class NamedEntry(models.Model):
     name = models.CharField(max_length=100)
 
@@ -15,6 +14,12 @@ class NamedEntry(models.Model):
 class SpaceBody(NamedEntry):
     color = models.CharField(max_length=10)
     diameter = models.FloatField()
+
+    @property
+    def s(self):
+        return pi * self.diameter ** 2
+
+
 
 
     class Meta:
@@ -33,7 +38,8 @@ class StarSystem(NamedEntry):
     pos_x = models.PositiveIntegerField()
     pos_y = models.PositiveIntegerField()
     galaxy = models.ForeignKey("universe.Galaxy", on_delete=models.CASCADE, related_name="systems")
-
+    def __str__(self):
+        return self.name
 
 class Star(SpaceBody):
     star_system = models.ForeignKey("universe.StarSystem", on_delete=models.CASCADE)
